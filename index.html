@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyPilot AI — Intelligent Study Planner & Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Font integration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirm-modal" class="modal-overlay hidden" role="dialog" aria-modal="true"
+        aria-labelledby="confirm-title">
+        <div class="modal-box">
+            <h3 id="confirm-title" class="modal-title">Confirm Action</h3>
+            <p id="confirm-msg" class="modal-body">Are you sure you want to proceed?</p>
+            <div class="modal-actions">
+                <button id="confirm-btn-cancel" class="btn btn-secondary">Cancel</button>
+                <button id="confirm-btn-ok" class="btn btn-danger">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 1: LANDING & AUTH PAGE -->
+    <div id="view-landing" class="view-container">
+        <header class="landing-header">
+            <nav class="navbar container">
+                <div class="logo">
+                    <svg class="logo-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                    </svg>
+                    <span class="logo-text">StudyPilot <span class="logo-highlight">AI</span></span>
+                </div>
+                <div class="nav-links">
+                    <a href="#features">Features</a>
+                    <a href="#how-it-works">How It Works</a>
+                </div>
+                <div class="nav-actions">
+                    <button id="btn-theme-toggle-landing" class="btn-icon" title="Toggle Theme"
+                        aria-label="Toggle Theme">
+                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5" />
+                            <path
+                                d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                        </svg>
+                        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                        </svg>
+                    </button>
+                    <button id="nav-btn-login" class="btn btn-outline">Log In</button>
+                    <button id="nav-btn-signup" class="btn btn-primary">Get Started</button>
+                </div>
+            </nav>
+        </header>
+
+        <main class="landing-body container">
+            <!-- HERO SECTION -->
+            <section class="hero-section">
+                <div class="hero-badge">✨ Rule-Based Smart Study Optimization Engine</div>
+                <h1 class="hero-title">Master Your Syllabus with <span class="gradient-text">Precision & Clarity</span>
+                </h1>
+                <p class="hero-subtitle">Stop guessing what to study next. StudyPilot AI algorithmically prioritizes
+                    your hardest subjects, upcoming exams, and revision routines into an actionable daily schedule.</p>
+                <div class="hero-cta-group">
+                    <button id="hero-btn-demo" class="btn btn-primary btn-lg">WELCOME</button>
+                    <button id="hero-btn-signup" class="btn btn-secondary btn-lg">Create Free Account</button>
+                </div>
+                <div class="hero-preview-card">
+                    <div class="preview-header">
+                        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                        <span class="preview-title">StudyPilot Engine Preview</span>
+                    </div>
+                    <div class="preview-content">
+                        <div class="preview-stat-grid">
+                            <div class="p-stat"><span>Syllabus Target</span><strong>84%</strong></div>
+                            <div class="p-stat"><span>Optimal Focus</span><strong>3.5 hrs/day</strong></div>
+                            <div class="p-stat"><span>Next Exam</span><strong>Calculus II (in 4 days)</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FEATURES SECTION -->
+            <section id="features" class="section-block">
+                <h2 class="section-title">Built for High-Performing Students</h2>
+                <div class="features-grid">
+                    <div class="card feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Smart Timetable Engine</h3>
+                        <p>Calculates exact study blocks according to difficulty, revision curves, and approaching exam
+                            deadlines.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">⏱️</div>
+                        <h3>Pomodoro Focus Suite</h3>
+                        <p>Stay in deep flow with integrated timed sessions, break reminders, and daily session
+                            tracking.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Visual Analytics</h3>
+                        <p>Real-time subject velocity progress bars, task completion metrics, and customizable weekly
+                            charts.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HOW IT WORKS -->
+            <section id="how-it-works" class="section-block">
+                <h2 class="section-title">How StudyPilot Operates</h2>
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-num">1</div>
+                        <h3>Input Syllabus Data</h3>
+                        <p>Add your subjects, completion percentages, exam dates, and difficulty ratings.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">2</div>
+                        <h3>Generate Plan</h3>
+                        <p>Our rule-based engine structures daily study blocks without overlapping your available hours.
+                        </p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">3</div>
+                        <h3>Execute & Track</h3>
+                        <p>Complete daily tasks, monitor progress metrics, and adjust schedules on the fly.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="landing-footer">
+            <div class="container footer-content">
+                <p>&copy; 2026 StudyPilot AI. Pure client-side demo environment.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- AUTH MODAL CONTAINER -->
+    <div id="auth-modal" class="modal-overlay hidden" role="dialog" aria-modal="true">
+        <div class="modal-box auth-box">
+            <button id="auth-close-btn" class="close-btn" aria-label="Close modal">&times;</button>
+
+            <!-- LOGIN FORM -->
+            <form id="form-login" class="auth-form">
+                <h2>Welcome Back</h2>
+                <p class="auth-subtext">Log into your local study session</p>
+
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required placeholder="demo@studypilot.ai" />
+                    <span class="field-error" id="err-login-email"></span>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <div class="password-wrap">
+                        <input type="password" id="login-password" required minlength="6" placeholder="••••••••" />
+                        <button type="button" class="toggle-pwd-btn" data-target="login-password">Show</button>
+                    </div>
+                    <span class="field-error" id="err-login-password"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                <button type="button" id="btn-quick-demo" class="btn btn-secondary btn-block mt-2">
+                </button>
+
+                <p class="auth-switch">Don't have an account? <a href="#" id="link-to-signup">Sign up</a></p>
+                <!-- Security Clarification Comment: 
+             Demo Note: Authentication uses client-side localStorage isolation for UI demonstration purposes only.
+             Do not store sensitive or real passwords. 
+        -->
+                <div class="demo-warning-banner">⚠️ Note: Local demo mode. Data stored in client browser memory.</div>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form id="form-signup" class="auth-form hidden">
+                <h2>Create Account</h2>
+                <p class="auth-subtext">Start optimizing your study schedule</p>
+
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required placeholder="Alex Mercer" />
+                    <span class="field-error" id="err-signup-name"></span>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" required placeholder="alex@example.com" />
+                    <span class="field-error" id="err-signup-email"></span>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password (min 6 chars)</label>
+                    <div class="password-wrap">
+                        <input type="password" id="signup-password" required minlength="6" placeholder="••••••••" />
+                        <button type="button" class="toggle-pwd-btn" data-target="signup-password">Show</button>
+                    </div>
+                    <span class="field-error" id="err-signup-password"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                <p class="auth-switch">Already registered? <a href="#" id="link-to-login">Log in</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- VIEW 2: MAIN SAAS DASHBOARD APP -->
+    <div id="view-app" class="app-layout hidden">
+        <!-- MOBILE SIDEBAR OVERLAY -->
+        <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+        <!-- SIDEBAR NAVIGATION -->
+        <aside id="app-sidebar" class="app-sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg class="logo-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                    </svg>
+                    <span class="logo-text">StudyPilot <span class="logo-highlight">AI</span></span>
+                </div>
+                <button id="sidebar-close-btn" class="btn-icon mobile-only" aria-label="Close sidebar">&times;</button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-page="page-overview">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="7" height="7" />
+                        <rect x="14" y="3" width="7" height="7" />
+                        <rect x="14" y="14" width="7" height="7" />
+                        <rect x="3" y="14" width="7" height="7" />
+                    </svg>
+                    <span>Overview</span>
+                </button>
+                <button class="nav-item" data-page="page-plan">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+                    </svg>
+                    <span>Study Plan Engine</span>
+                </button>
+                <button class="nav-item" data-page="page-subjects">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
+                    </svg>
+                    <span>Subjects</span>
+                </button>
+                <button class="nav-item" data-page="page-tasks">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 11l3 3L22 4" />
+                        <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+                    </svg>
+                    <span>Task Tracker</span>
+                </button>
+                <button class="nav-item" data-page="page-calendar">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                    <span>Calendar</span>
+                </button>
+                <button class="nav-item" data-page="page-timer">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    <span>Focus Timer</span>
+                </button>
+                <button class="nav-item" data-page="page-analytics">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10" />
+                        <line x1="12" y1="20" x2="12" y2="4" />
+                        <line x1="6" y1="20" x2="6" y2="14" />
+                    </svg>
+                    <span>Progress & Analytics</span>
+                </button>
+                <button class="nav-item" data-page="page-settings">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" />
+                        <path
+                            d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+                    </svg>
+                    <span>Settings</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="btn-logout" class="btn-logout">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                        <polyline points="16 17 21 12 16 7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                    </svg>
+                    <span>Sign Out</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <div class="app-main">
+            <!-- TOP HEADER BAR -->
+            <header class="app-topbar">
+                <div class="topbar-left">
+                    <button id="sidebar-toggle-btn" class="btn-icon mobile-only" aria-label="Toggle Navigation">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12" />
+                            <line x1="3" y1="6" x2="21" y2="6" />
+                            <line x1="3" y1="18" x2="21" y2="18" />
+                        </svg>
+                    </button>
+                    <div>
+                        <h1 id="user-welcome-heading" class="topbar-title">Welcome back, Student</h1>
+                        <p id="topbar-date-display" class="topbar-subtitle">Today is Loading...</p>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <button id="btn-theme-toggle-app" class="btn-icon" title="Toggle Theme" aria-label="Toggle Theme">
+                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5" />
+                            <path
+                                d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+                        </svg>
+                        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                        </svg>
+                    </button>
+
+                    <div class="user-avatar-badge" id="user-avatar-badge">AP</div>
+                </div>
+            </header>
+
+            <!-- PAGE CONTENT CONTAINER -->
+            <main class="app-body">
+
+                <!-- PAGE 1: OVERVIEW PAGE -->
+                <section id="page-overview" class="app-page active">
+                    <div class="stats-grid">
+                        <div class="card stat-card">
+                            <span class="stat-label">Total Subjects</span>
+                            <strong id="stat-subjects-count" class="stat-value">0</strong>
+                            <span class="stat-sub">Active Courses</span>
+                        </div>
+                        <div class="card stat-card">
+                            <span class="stat-label">Tasks Completed</span>
+                            <strong id="stat-tasks-completed" class="stat-value">0 / 0</strong>
+                            <span class="stat-sub" id="stat-tasks-pct">0% finished</span>
+                        </div>
+                        <div class="card stat-card">
+                            <span class="stat-label">Focus Sessions</span>
+                            <strong id="stat-focus-hours" class="stat-value">0 hrs</strong>
+                            <span class="stat-sub" id="stat-focus-count">0 sessions total</span>
+                        </div>
+                        <div class="card stat-card">
+                            <span class="stat-label">Next Exam Countdown</span>
+                            <strong id="stat-next-exam" class="stat-value">None</strong>
+                            <span class="stat-sub" id="stat-next-exam-sub">No exams set</span>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid mt-4">
+                        <!-- TODAY SCHEDULE -->
+                        <div class="card grid-col-2">
+                            <div class="card-header">
+                                <h3>Today's Generated Schedule</h3>
+                                <button class="btn btn-sm btn-outline btn-nav-trigger" data-page="page-plan">Modify
+                                    Plan</button>
+                            </div>
+                            <div id="overview-schedule-list" class="schedule-list mt-2">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- UPCOMING REVISION / EXAMS -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Exam & Revision Alerts</h3>
+                            </div>
+                            <div id="overview-alerts-list" class="alerts-list mt-2">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid mt-4">
+                        <!-- WEEKLY ACTIVITY CHART -->
+                        <div class="card grid-col-2">
+                            <div class="card-header">
+                                <h3>Weekly Activity (Focus & Tasks Completed)</h3>
+                            </div>
+                            <div class="chart-wrapper mt-3">
+                                <div id="weekly-bar-chart" class="custom-bar-chart"></div>
+                            </div>
+                        </div>
+
+                        <!-- SUBJECT PROGRESS SUMMARY -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Subject Mastery</h3>
+                            </div>
+                            <div id="overview-subject-progress" class="subject-progress-list mt-2">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 2: STUDY PLAN ENGINE PAGE -->
+                <section id="page-plan" class="app-page">
+                    <div class="page-header-block">
+                        <h2>Algorithmic Study Plan Generator</h2>
+                        <p>Our rule-based engine balances your daily study load based on subject difficulty ratings,
+                            syllabus gaps, and upcoming exam urgency.</p>
+                    </div>
+
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <h3>Plan Parameters</h3>
+                            <form id="form-plan-config" class="mt-3">
+                                <div class="form-group">
+                                    <label for="cfg-daily-hours">Available Daily Study Hours</label>
+                                    <input type="number" id="cfg-daily-hours" min="1" max="14" step="0.5" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="cfg-start-time">Preferred Start Time</label>
+                                    <input type="time" id="cfg-start-time" required />
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Generate Optimized
+                                    Schedule</button>
+                            </form>
+                            <div class="engine-note mt-3">
+                                <small>💡 <strong>System Note:</strong> Generates study blocks, short breaks, and active
+                                    revision sessions prioritized algorithmically.</small>
+                            </div>
+                        </div>
+
+                        <div class="card grid-col-2">
+                            <div class="card-header">
+                                <h3>Generated Daily Timetable</h3>
+                                <div class="action-btn-group">
+                                    <button id="btn-save-plan" class="btn btn-sm btn-primary">Save Schedule</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive mt-3">
+                                <table class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Time Block</th>
+                                            <th>Subject</th>
+                                            <th>Activity Type</th>
+                                            <th>Duration</th>
+                                            <th>Priority</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="timetable-tbody">
+                                        <!-- Dynamic rendering -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 3: SUBJECTS PAGE -->
+                <section id="page-subjects" class="app-page">
+                    <div class="page-header-block flex-between">
+                        <div>
+                            <h2>Subject Management</h2>
+                            <p>Maintain your courses, track syllabus completion, and compute risk levels.</p>
+                        </div>
+                        <button id="btn-open-subject-modal" class="btn btn-primary">+ Add New Subject</button>
+                    </div>
+
+                    <div class="subjects-grid mt-4" id="subjects-cards-container">
+                        <!-- Dynamic cards -->
+                    </div>
+                </section>
+
+                <!-- PAGE 4: TASKS PAGE -->
+                <section id="page-tasks" class="app-page">
+                    <div class="page-header-block flex-between">
+                        <div>
+                            <h2>Task Tracker</h2>
+                            <p>Manage assignments, reading goals, and study tasks.</p>
+                        </div>
+                        <button id="btn-open-task-modal" class="btn btn-primary">+ Create New Task</button>
+                    </div>
+
+                    <div class="card filter-bar-card mt-3">
+                        <div class="filter-grid">
+                            <div class="form-group mb-0">
+                                <input type="text" id="task-search-input" placeholder="Search tasks by title..." />
+                            </div>
+                            <div class="form-group mb-0">
+                                <select id="task-filter-subject">
+                                    <option value="ALL">All Subjects</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-0">
+                                <select id="task-filter-priority">
+                                    <option value="ALL">All Priorities</option>
+                                    <option value="High">High Priority</option>
+                                    <option value="Medium">Medium Priority</option>
+                                    <option value="Low">Low Priority</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-0">
+                                <select id="task-filter-status">
+                                    <option value="ALL">All Statuses</option>
+                                    <option value="PENDING">Pending</option>
+                                    <option value="COMPLETED">Completed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="task-list-container mt-3" id="task-list-container">
+                        <!-- Dynamic Task Cards -->
+                    </div>
+                </section>
+
+                <!-- PAGE 5: CALENDAR PAGE -->
+                <section id="page-calendar" class="app-page">
+                    <div class="page-header-block flex-between">
+                        <div>
+                            <h2>Academic Calendar</h2>
+                            <p>Keep track of exam deadlines, project milestones, and scheduled study events.</p>
+                        </div>
+                        <div class="calendar-controls">
+                            <button id="cal-prev-month" class="btn btn-outline btn-sm">&larr; Prev</button>
+                            <strong id="cal-month-year-label" class="cal-title">Month Year</strong>
+                            <button id="cal-next-month" class="btn btn-outline btn-sm">Next &rarr;</button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-layout mt-3">
+                        <div class="card calendar-card">
+                            <div class="calendar-grid-header">
+                                <div>Sun</div>
+                                <div>Mon</div>
+                                <div>Tue</div>
+                                <div>Wed</div>
+                                <div>Thu</div>
+                                <div>Fri</div>
+                                <div>Sat</div>
+                            </div>
+                            <div id="calendar-days-grid" class="calendar-days-grid">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+
+                        <div class="card day-details-card">
+                            <h3 id="cal-selected-date-title">Selected Date Events</h3>
+                            <div id="cal-selected-events-list" class="events-list mt-3">
+                                <p class="empty-text">Select a date on the calendar to view scheduled items.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 6: POMODORO FOCUS TIMER PAGE -->
+                <section id="page-timer" class="app-page">
+                    <div class="page-header-block text-center">
+                        <h2>Pomodoro Focus Timer</h2>
+                        <p>Enhance deep concentration and prevent burnout with systematic intervals.</p>
+                    </div>
+
+                    <div class="timer-wrapper card mt-4">
+                        <div class="timer-mode-selector">
+                            <button class="timer-mode-btn active" data-mode="work">Focus (25m)</button>
+                            <button class="timer-mode-btn" data-mode="shortBreak">Short Break (5m)</button>
+                            <button class="timer-mode-btn" data-mode="longBreak">Long Break (15m)</button>
+                        </div>
+
+                        <div class="timer-display" id="timer-display-clock">25:00</div>
+                        <div class="timer-status-label" id="timer-status-label">Ready to Focus</div>
+
+                        <div class="timer-controls mt-4">
+                            <button id="timer-btn-start" class="btn btn-primary btn-lg">Start Session</button>
+                            <button id="timer-btn-pause" class="btn btn-secondary btn-lg hidden">Pause</button>
+                            <button id="timer-btn-reset" class="btn btn-outline btn-lg">Reset</button>
+                        </div>
+
+                        <div class="timer-stats-footer mt-4">
+                            <div>Completed Focus Sessions Today: <strong id="timer-today-count">0</strong></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 7: PROGRESS & ANALYTICS PAGE -->
+                <section id="page-analytics" class="app-page">
+                    <div class="page-header-block">
+                        <h2>Analytics & Productivity Insights</h2>
+                        <p>Real-time telemetry on subject mastery and operational task performance.</p>
+                    </div>
+
+                    <div id="analytics-motivation-banner" class="motivation-banner mt-3">
+                        <div class="banner-icon">🎯</div>
+                        <div>
+                            <h4 id="analytics-quote-title">Keep up the steady effort!</h4>
+                            <p id="analytics-quote-body">Every finished task brings you closer to mastering your
+                                subjects.</p>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-grid mt-4">
+                        <div class="card">
+                            <h3>Task Completion Split</h3>
+                            <div class="analytics-stat-box mt-3">
+                                <div class="analytics-number-huge" id="analytics-task-ratio">0/0</div>
+                                <div class="progress-bar-wrap mt-2">
+                                    <div id="analytics-task-bar" class="progress-bar-fill" style="width: 0%;"></div>
+                                </div>
+                                <p class="sub-text mt-2" id="analytics-task-text">0% completed overall</p>
+                            </div>
+                        </div>
+
+                        <div class="card grid-col-2">
+                            <h3>Subject Syllabus Coverage</h3>
+                            <div id="analytics-subject-bars" class="mt-3 space-y-3">
+                                <!-- Dynamic progress bars -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PAGE 8: SETTINGS PAGE -->
+                <section id="page-settings" class="app-page">
+                    <div class="page-header-block">
+                        <h2>User Settings & Data Management</h2>
+                        <p>Configure preferences and control your locally stored dataset.</p>
+                    </div>
+
+                    <div class="dashboard-grid mt-3">
+                        <div class="card">
+                            <h3>Profile Settings</h3>
+                            <form id="form-settings-profile" class="mt-3">
+                                <div class="form-group">
+                                    <label for="sett-display-name">Display Name</label>
+                                    <input type="text" id="sett-display-name" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="sett-daily-hours">Default Daily Study Hours</label>
+                                    <input type="number" id="sett-daily-hours" min="1" max="16" required />
+                                </div>
+                                <div class="form-group">
+                                    <label for="sett-start-time">Preferred Start Time</label>
+                                    <input type="time" id="sett-start-time" required />
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Settings</button>
+                            </form>
+                        </div>
+
+                        <div class="card">
+                            <h3>Data Backup & Maintenance</h3>
+                            <p class="sub-text">Export your entire schedule, tasks, and settings to a JSON file, or
+                                restore from a previous backup.</p>
+
+                            <div class="backup-actions mt-4">
+                                <button id="btn-export-data" class="btn btn-outline">
+                                    📥 Export Data (JSON)
+                                </button>
+
+                                <label class="btn btn-outline cursor-pointer">
+                                    📤 Import Data (JSON)
+                                    <input type="file" id="input-import-file" accept=".json" class="hidden" />
+                                </label>
+                            </div>
+
+                            <hr class="divider mt-4 mb-4" />
+
+                            <div class="danger-zone">
+                                <h4 class="text-danger">Danger Zone</h4>
+                                <p class="sub-text">Reset all your tasks, subjects, and study plans to factory defaults.
+                                </p>
+                                <button id="btn-reset-data" class="btn btn-danger mt-2">Reset All Local Data</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD / EDIT SUBJECT -->
+    <div id="modal-subject" class="modal-overlay hidden" role="dialog" aria-modal="true">
+        <div class="modal-box">
+            <button class="close-btn modal-close-trigger" aria-label="Close modal">&times;</button>
+            <h3 id="modal-subject-title">Add New Subject</h3>
+            <form id="form-subject" class="mt-3">
+                <input type="hidden" id="subj-id" value="" />
+                <div class="form-group">
+                    <label for="subj-name">Subject Name</label>
+                    <input type="text" id="subj-name" required placeholder="e.g. Calculus II" />
+                </div>
+                <div class="form-group">
+                    <label for="subj-difficulty">Difficulty Level</label>
+                    <select id="subj-difficulty" required>
+                        <option value="Easy">Easy</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="Hard">Hard</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="subj-progress">Current Syllabus Completion (%)</label>
+                    <input type="number" id="subj-progress" min="0" max="100" value="0" required />
+                </div>
+                <div class="form-group">
+                    <label for="subj-exam-date">Upcoming Exam Date</label>
+                    <input type="date" id="subj-exam-date" required />
+                </div>
+                <div class="modal-actions mt-4">
+                    <button type="button" class="btn btn-secondary modal-close-trigger">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Subject</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD / EDIT TASK -->
+    <div id="modal-task" class="modal-overlay hidden" role="dialog" aria-modal="true">
+        <div class="modal-box">
+            <button class="close-btn modal-close-trigger" aria-label="Close modal">&times;</button>
+            <h3 id="modal-task-title">Create New Task</h3>
+            <form id="form-task" class="mt-3">
+                <input type="hidden" id="task-id" value="" />
+                <div class="form-group">
+                    <label for="task-title">Task Title</label>
+                    <input type="text" id="task-title" required placeholder="e.g. Read Chapter 4 Problem Set" />
+                </div>
+                <div class="form-group">
+                    <label for="task-subject-select">Associated Subject</label>
+                    <select id="task-subject-select" required>
+                        <!-- Dynamically populated -->
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="task-due-date">Due Date</label>
+                        <input type="date" id="task-due-date" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="task-priority">Priority Level</label>
+                        <select id="task-priority" required>
+                            <option value="Low">Low</option>
+                            <option value="Medium" selected>Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="task-duration">Estimated Duration (minutes)</label>
+                    <input type="number" id="task-duration" min="10" step="5" value="45" required />
+                </div>
+                <div class="modal-actions mt-4">
+                    <button type="button" class="btn btn-secondary modal-close-trigger">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
